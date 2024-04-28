@@ -1,4 +1,8 @@
-console.log(`Hello Node.js v${process.versions.node}!`);
+import { EmailEvent } from "./classes/EmailEvent.js";
+import { PushEvent } from "./classes/PushEvent.js";
+import { SMSEvent } from "./classes/SMSEvent.js";
+import { EventLogger } from "./classes/EventLogger.js";
+import { EventLog } from "./classes/EventLog.js";
 
 /**
  * As classes EmailEvent, PushEvent e SMSEvent são responsáveis pelo envio de
@@ -17,3 +21,21 @@ console.log(`Hello Node.js v${process.versions.node}!`);
  *
  * Crie alguns casos de teste e exiba, no terminal, o conteúdo da variável global.
  */
+
+// Exemplo de evento de e-mail com decorador de logging
+const emailEvent = new EmailEvent();
+const loggedEmailEvent = new EventLogger(emailEvent);
+loggedEmailEvent.send('Hello, this is an email event.');
+
+// Exemplo de evento de push com decorador de logging
+const pushEvent = new PushEvent();
+const loggedPushEvent = new EventLogger(pushEvent);
+loggedPushEvent.send('Hello, this is a push event.');
+
+// Exemplo de evento de SMS com decorador de logging
+const smsEvent = new SMSEvent();
+const loggedSMSEvent = new EventLogger(smsEvent);
+loggedSMSEvent.send('Hello, this is an SMS event.');
+
+// Exibir logs no terminal
+console.log(EventLog.getInstance().getLogs());
